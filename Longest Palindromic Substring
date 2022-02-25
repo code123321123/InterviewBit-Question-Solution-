@@ -1,0 +1,36 @@
+Problem Description
+
+Given a string A of size N, find and return the longest palindromic substring in A.
+
+Substring of string A is A[i...j] where 0 <= i <= j < len(A)
+
+Palindrome string:
+A string which reads the same backwards. More formally, A is palindrome if reverse(A) = A.
+
+Incase of conflict, return the substring which occurs first ( with the least starting index).
+
+
+
+
+Solution :-
+
+public class Solution {
+    public String longestPalindrome(String A) {
+        String rtrn = "";
+        for(int i=0;i<A.length();i++){
+            String tempMax1 = (expandSearch(A,i,i));
+            String tempMax2 = (expandSearch(A,i,i+1));
+            if(rtrn.length()< tempMax1.length() || rtrn.length()< tempMax2.length())
+                rtrn = (tempMax1.length()<tempMax2.length())?tempMax2:tempMax1;
+        }
+        return rtrn;
+    }
+
+    public String expandSearch(String A,int sInd,int eInd){
+        while(sInd>=0 && eInd<A.length() && (A.charAt(sInd)==A.charAt(eInd))){
+            sInd--;
+            eInd++;
+        }
+        return A.substring(sInd+1,eInd);
+    }
+}
