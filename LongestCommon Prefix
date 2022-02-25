@@ -1,0 +1,71 @@
+Problem Description
+
+Given the array of strings A, you need to find the longest string S which is the prefix of ALL the strings in the array.
+
+Longest common prefix for a pair of strings S1 and S2 is the longest string S which is the prefix of both S1 and S2.
+
+For Example: longest common prefix of "abcdefgh" and "abcefgh" is "abc".
+
+
+
+
+Approach 1:-
+
+string common(string str1, string str2)
+{
+    int minimum=min(str1.size(), str2.size());                   // find thre minimum of two string length
+    string str="";
+    for(int i=0;i<minimum;i++)                                  // loop till minimum length 
+    {
+      if(str1[i]==str2[i])                                     // If character equals then concatenate 
+      {
+         str+=str1[i];
+      }
+   }
+   return str;                                               // return the resultant string 
+} 
+string Solution::longestCommonPrefix(vector<string> &A) {
+
+int n=A.size();
+string prefix[n];
+prefix[0]=A[0];                                              // store the fisrt string into the prefix array 
+for(int i=1;i<n;i++)
+{
+  prefix[i]=common(prefix[i-1],A[i]);                        // store the common string till ith 
+}
+return prefix[n-1];                                         // Return theblast index value becaise that is the largest commmon prefix.
+}
+
+
+
+Time complexity :-O(length of string )
+Space Complexity : O(n)
+
+
+
+
+Approach 2:
+
+
+string Solution::longestCommonPrefix(vector<string> &strs) {
+
+            if (strs.size() == 0) return "";
+            string ans = "";
+            for (int i = 0; i < strs[0].length(); i++) {
+                                                                
+                bool isQualified = true;                                          // checking if character i qualifies to be in the answer. 
+                for (int j = 1; j < strs.size(); j++) {
+                    if (i >= strs[j].length() || strs[j][i] != strs[0][i]) {
+                        isQualified = false;
+                        break;
+                    }
+                }
+                if (!isQualified) break;
+                ans.push_back(strs[0][i]);
+            }
+            return ans;
+        }
+
+
+
+
