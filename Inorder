@@ -1,0 +1,44 @@
+Problem Description
+
+Given a binary tree, return the inorder traversal of its nodes values.
+
+NOTE: Using recursion is not allowed.
+
+
+
+Approach :-
+
+
+
+**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+
+*/
+
+vector<int> Solution::inorderTraversal(TreeNode* A) {
+    stack<TreeNode *> s;
+    vector<int>res;
+    TreeNode *current=A;
+
+    while(current!=NULL || s.empty()==false)
+    {
+        while(current!=NULL)
+        {
+            s.push(current);
+            current=current->left;
+            
+        }
+        current=s.top();
+        s.pop();
+        res.push_back(current->val);
+        current=current->right;
+    }
+
+return  res;
+}
