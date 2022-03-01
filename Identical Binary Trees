@@ -1,0 +1,32 @@
+
+Problem Description
+
+Given two binary trees, check if they are equal or not.
+
+Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+
+
+Solution :-
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+int Solution::isSameTree(TreeNode* A, TreeNode* B) {
+    TreeNode * curr1=A;
+      TreeNode * curr2=B;
+    if(curr1==NULL && curr2==NULL) return 1;
+     if(curr1==NULL && curr2!=NULL) return 0;
+      if(curr1!=NULL && curr2==NULL) return 0;
+     
+
+      if(curr1->val!=curr2->val) return 0;
+      return isSameTree(curr1->left, curr2->left);
+      return isSameTree(curr1->right, curr2->right);
+}
