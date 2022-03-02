@@ -1,0 +1,48 @@
+Problem Description
+
+Given the root of a tree A with each node having a certain value, find the count of nodes which have more value than all its ancestor
+
+
+
+
+
+Solution :
+----------------------------------------------------
+
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ int dfs(TreeNode * curr, int maxx, int &count)
+ {
+   if(curr==NULL)return 0;
+
+   else
+   {
+     if(curr->val>maxx)
+     {
+         count++;
+     }
+     dfs(curr->left,max(maxx, curr->val), count);
+     dfs(curr->right,max(maxx, curr->val), count);
+
+   }
+   return count;
+ }
+
+
+int Solution::solve(TreeNode* A) {
+int count=0;
+int x=dfs(A,INT_MIN, count);
+return x;
+
+}
+
+Basically what I am doing here is we just check the present node is greater than its above node of so count+1 and call DFS on left amd rihgt
+
