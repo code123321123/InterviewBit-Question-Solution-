@@ -1,0 +1,50 @@
+Problem Description
+
+Given a binary tree, return the Postorder traversal of its nodes values.
+
+NOTE: Using recursion is not allowed.
+
+
+
+
+Approach:-
+----------------------------------------------------------------------------------------------------------------
+
+So the point is like at each node justpush the node value into the vector and  push it's left into the stack and then push right and fianlly if stack is empty reverse the vecto and return it 
+
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<int> Solution::postorderTraversal(TreeNode* A) {
+  
+  TreeNode *Node =A;
+  stack<TreeNode*>st;
+  vector<int>res;
+
+  st.push(Node);
+  while(!st.empty())
+  {
+      Node=st.top();
+      st.pop();
+      res.push_back(Node->val);
+      if(Node->left!=NULL)
+      {
+        st.push(Node->left);  
+      }
+      if(Node->right!=NULL)
+      {
+          st.push(Node->right);
+      }
+
+  }
+  reverse(res.begin(), res.end());
+  return res;
+ 
+}
