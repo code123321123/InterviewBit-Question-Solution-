@@ -1,0 +1,67 @@
+Problem Description
+
+Given a Binary Tree A containing N nodes.
+
+You need to find the path from Root to a given node B.
+
+NOTE:
+
+No two nodes in the tree have same data values.
+You can assume that B is present in the tree A and a path always exists.
+
+
+Problem Constraints
+
+1 <= N <= 105
+
+1 <= Data Values of Each Node <= N
+
+1 <= B <= N
+
+
+
+
+
+Solution :-
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+vector<int> ans;
+
+void Helper(TreeNode* A, int B,  vector<int> res)
+{
+    if(A ==NULL)
+    {
+        return ;
+    }
+
+    if(A->val == B)
+    {
+        res.push_back(A->val);
+       ans = res;
+        return;
+    }
+     res.push_back(A->val);
+
+     Helper(A->left,B,res);
+
+     Helper(A->right,B,res);
+
+   
+}
+
+vector<int> Solution::solve(TreeNode* A, int B) {
+    vector<int> res;
+    Helper(A,B,res);
+    return ans;
+}
+
+
