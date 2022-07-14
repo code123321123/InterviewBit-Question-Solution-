@@ -1,0 +1,84 @@
+Leetcode :  84. Largest Rectangle in Histogram
+
+Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+
+ 
+
+Example 1:
+Input: heights = [2,1,5,6,2,3]
+Output: 10
+Explanation: The above is a histogram where width of each bar is 1.
+The largest rectangle is shown in the red area, which has an area = 10 units.
+
+
+=====================================================================================================================
+Solution :
+========================================================================================================================
+
+Approach : find the left element whihc is less than current and store in left array same goes with right array frim right end 
+ finally find the max area and return :
+ 
+ 
+ class Solution {
+    public int largestRectangleArea(int[] heights) {
+        
+        int n=heights.length;
+        Stack<Integer>st=new Stack<>();    // Stack is used to store the index of left and right index whihc is less then current 
+        int left[]=new int[n];  
+        int right[]=new int[n];
+        
+        
+        // if stack is empty insert  index 0 and push index i into stack and if not empty then check element coresponding to stack top is greater than height[i] or not
+        // if yes then pop from stack ... else populate the left array ... Simialry goes with right array 
+        for(int i=0;i<n;i++)
+        {
+            if(st.isEmpty())
+            {
+                left[i]=0;
+                st.push(i);
+            }
+            else
+            {
+                while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                    st.pop();
+                
+                left[i]=st.isEmpty()?0:st.peek()+1;
+                st.push(i);
+            }
+        }
+        
+        while(!st.isEmpty())
+            st.pop();
+        
+        for(int i=n-1;i>=0;--i)
+        {
+            if(st.isEmpty())
+            {
+                right[i]=n-1;
+                st.push(i);
+            }
+            else
+            {
+                while(!st.isEmpty() && heights[st.peek()]>=heights[i])
+                    st.pop();
+                
+                right[i]=st.isEmpty()?n-1:st.peek()-1;
+                st.push(i);
+            }
+        }
+        
+        // find the max Area 
+        int maxArea=0;
+        for(int i=0;i<n;i++)
+        {
+            maxArea=Math.max(maxArea,heights[i]*(right[i]-left[i]+1));
+            
+        }
+        return maxArea;
+        
+        
+        
+        
+        
+    }
+}
